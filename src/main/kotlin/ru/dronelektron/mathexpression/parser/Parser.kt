@@ -57,9 +57,11 @@ class Parser(private val tokens: List<Token>) {
 	}
 
 	private fun parseIdentifier(): ConcreteNode {
-		if (!match(LEFT_PAREN)) return ConcreteNode(previousToken())
+		val token = previousToken()
 
-		return parseArguments().also {
+		if (!match(LEFT_PAREN)) return ConcreteNode(token)
+
+		return ConcreteNode(token, parseArguments()).also {
 			consumeToken(RIGHT_PAREN, ERROR_INCOMPLETE_CALL)
 		}
 	}

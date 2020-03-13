@@ -177,6 +177,20 @@ class ParserTest {
 	}
 
 	@Test
+	fun root_whenFunctionCall_shouldParse() {
+		val expectedTree = ConcreteNode(
+			Token(IDENTIFIER, "sin", 0),
+			ConcreteNode(
+				Token(MULTIPLICATION, "*", 6),
+				ConcreteNode(Token(CONSTANT, "2", 4)),
+				ConcreteNode(Token(IDENTIFIER, "x", 8))
+			)
+		)
+
+		parseGood("sin(2 * x)", expectedTree)
+	}
+
+	@Test
 	fun root_whenEmpty_throwsException() {
 		parseBad("", Parser.ERROR_UNEXPECTED_TOKEN, Token(EOF, "", 0))
 	}
