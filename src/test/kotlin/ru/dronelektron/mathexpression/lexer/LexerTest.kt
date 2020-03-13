@@ -107,30 +107,40 @@ class LexerTest {
 
 	@Test
 	fun tokens_whenUnknownTokenAtPositionZero_throwsException() {
-		scanBad("@", 0)
+		scanBad("@", Lexer.ERROR_UNKNOWN_TOKEN, 0)
 	}
 
 	@Test
 	fun tokens_whenUnknownTokenAtTheEnd_throwsException() {
-		scanBad("2 + 3 - $", 8)
+		scanBad("2 + 3 - $", Lexer.ERROR_UNKNOWN_TOKEN, 8)
 	}
 
 	@Test
 	fun tokens_whenUnknownTokenAtPositionFour_throwsException() {
-		scanBad("1 * ! ^ 5", 4)
+		scanBad("1 * ! ^ 5", Lexer.ERROR_UNKNOWN_TOKEN, 4)
 	}
 
 	@Test
 	fun tokens_whenUnknownTokenAtPositionFourteen_throwsException() {
-		scanBad("2 + x1 * kappa$123", 14)
+		scanBad("2 + x1 * kappa$123", Lexer.ERROR_UNKNOWN_TOKEN, 14)
 	}
 
-	private fun scanBad(expressionText: String, expectedPosition: Int) {
+	@Test
+	fun tokens_whenConstantWithRedundantPoint_throwsException() {
+		scanBad("1.", Lexer.ERROR_INVALID_FORMAT_FOR_CONSTANT, 0)
+	}
+
+	@Test
+	fun tokens_whenIncompleteConstant_throwsException() {
+		scanBad(".", Lexer.ERROR_UNKNOWN_TOKEN, 0)
+	}
+
+	private fun scanBad(expressionText: String, expectedMessage: String, expectedPosition: Int) {
 		try {
 			Lexer(expressionText)
 			fail()
 		} catch (ex: LexerException) {
-			assertEquals(Lexer.ERROR_UNKNOWN_TOKEN, ex.message)
+			assertEquals(expectedMessage, ex.message)
 			assertEquals(expectedPosition, ex.position)
 		}
 	}
