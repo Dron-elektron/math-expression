@@ -19,34 +19,42 @@ class Parser(private val tokens: List<Token>) {
 		parseExponentiation()
 	}
 
-	private fun parseOperations(vararg tokenTypes: TokenType, parseSubRule: () -> CstNode): CstNode {
+	private fun parseOperations(vararg tokenTypes: TokenType, parseSubRule: () -> AstNode): AstNode {
 		var left = parseSubRule()
 
 		while (match(*tokenTypes)) {
-			left = CstNode(previousToken(), left, parseSubRule())
+			val token = previousToken()
+			val right = parseSubRule()
+
+			left = AstNode.Operation(token, left, right)
 		}
 
 		return left
 	}
 
-	private fun parseExponentiation(): CstNode {
+	private fun parseExponentiation(): AstNode {
 		val left = parseUnary()
 
 		return if (match(EXPONENTIATION)) {
-			CstNode(previousToken(), left, parseExponentiation())
+			val token = previousToken()
+			val right = parseExponentiation()
+
+			AstNode.Operation(token, left, right)
 		} else {
 			left
 		}
 	}
 
-	private fun parseUnary(): CstNode = if (match(SUBTRACTION)) {
-		CstNode(previousToken(), parseUnary())
+	private fun parseUnary(): AstNode = if (match(SUBTRACTION)) {
+		val expression = parseUnary()
+
+		AstNode.Unary(expression)
 	} else {
 		parsePrimary()
 	}
 
 	private fun parsePrimary() = when {
-		match(CONSTANT) -> CstNode(previousToken())
+		match(CONSTANT) -> AstNode.Constant(previousToken().lexeme.toDouble())
 		match(IDENTIFIER) -> parseIdentifier()
 
 		match(LEFT_PAREN) -> parseAddition().also {
@@ -56,17 +64,19 @@ class Parser(private val tokens: List<Token>) {
 		else -> error(ERROR_UNEXPECTED_TOKEN)
 	}
 
-	private fun parseIdentifier(): CstNode {
+	private fun parseIdentifier(): AstNode {
 		val token = previousToken()
 
-		if (!match(LEFT_PAREN)) return CstNode(token)
+		if (!match(LEFT_PAREN)) return AstNode.Variable(token)
 
-		return CstNode(token, parseArguments()).also {
+		val argument = parseArgument()
+
+		return AstNode.Function(token, argument).also {
 			consumeToken(RIGHT_PAREN, ERROR_INCOMPLETE_CALL)
 		}
 	}
 
-	private fun parseArguments(): CstNode {
+	private fun parseArgument(): AstNode {
 		// TODO: Multiple arguments
 		return parseAddition()
 	}
