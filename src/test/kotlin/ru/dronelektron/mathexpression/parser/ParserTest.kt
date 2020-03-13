@@ -211,9 +211,8 @@ class ParserTest {
 	private fun parseBad(expressionText: String, expectedMessage: String, expectedToken: Token) {
 		try {
 			val lexer = Lexer(expressionText)
-			val parser = Parser(lexer.tokens)
 
-			parser.root
+			Parser(lexer.tokens)
 			fail()
 		} catch (ex: ParserException) {
 			assertEquals(expectedMessage, ex.message)
