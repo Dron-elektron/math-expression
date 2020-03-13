@@ -178,12 +178,12 @@ class ParserTest {
 
 	@Test
 	fun root_whenEmpty_throwsException() {
-		parseBad("", Parser.ERROR_UNEXPECTED_TOKEN, eof(0))
+		parseBad("", Parser.ERROR_UNEXPECTED_TOKEN, Token(EOF, "", 0))
 	}
 
 	@Test
 	fun root_whenUnbalancedRightParen_throwsException() {
-		parseBad("(", Parser.ERROR_UNEXPECTED_TOKEN, eof(1))
+		parseBad("(", Parser.ERROR_UNEXPECTED_TOKEN, Token(EOF, "", 1))
 	}
 
 	@Test
@@ -193,12 +193,12 @@ class ParserTest {
 
 	@Test
 	fun root_whenExpectedRightParenAfterExpression_throwsException() {
-		parseBad("(2 + 3", Parser.ERROR_EXPECT_RIGHT_PAREN, eof(6))
+		parseBad("(2 + 3", Parser.ERROR_EXPECT_RIGHT_PAREN, Token(EOF, "", 6))
 	}
 
 	@Test
 	fun root_whenIncompleteCall_throwsException() {
-		parseBad("sin(2 * x", Parser.ERROR_INCOMPLETE_CALL, eof(9))
+		parseBad("sin(2 * x", Parser.ERROR_INCOMPLETE_CALL, Token(EOF, "", 9))
 	}
 
 	private fun parseGood(expressionText: String, expectedRoot: ConcreteNode) {
@@ -219,6 +219,4 @@ class ParserTest {
 			assertEquals(expectedToken, ex.token)
 		}
 	}
-
-	private fun eof(position: Int) = Token(EOF, "", position)
 }

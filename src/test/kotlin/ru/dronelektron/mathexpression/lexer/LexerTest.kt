@@ -2,6 +2,7 @@ package ru.dronelektron.mathexpression.lexer
 
 import org.junit.Assert.*
 import org.junit.Test
+import ru.dronelektron.mathexpression.lexer.TokenType.*
 
 class LexerTest {
 	@Test
@@ -9,7 +10,7 @@ class LexerTest {
 		val lexer = Lexer("")
 
 		val expectedTokens = listOf(
-			Token(TokenType.EOF, "", 0)
+			Token(EOF, "", 0)
 		)
 
 		assertEquals(expectedTokens, lexer.tokens)
@@ -20,9 +21,9 @@ class LexerTest {
 		val lexer = Lexer("()")
 
 		val expectedTokens = listOf(
-			Token(TokenType.LEFT_PAREN, "(", 0),
-			Token(TokenType.RIGHT_PAREN, ")", 1),
-			Token(TokenType.EOF, "", 2)
+			Token(LEFT_PAREN, "(", 0),
+			Token(RIGHT_PAREN, ")", 1),
+			Token(EOF, "", 2)
 		)
 
 		assertEquals(expectedTokens, lexer.tokens)
@@ -33,8 +34,8 @@ class LexerTest {
 		val lexer = Lexer("2")
 
 		val expectedTokens = listOf(
-			Token(TokenType.CONSTANT, "2", 0),
-			Token(TokenType.EOF, "", 1)
+			Token(CONSTANT, "2", 0),
+			Token(EOF, "", 1)
 		)
 
 		assertEquals(expectedTokens, lexer.tokens)
@@ -45,8 +46,8 @@ class LexerTest {
 		val lexer = Lexer("2.4")
 
 		val expectedTokens = listOf(
-			Token(TokenType.CONSTANT, "2.4", 0),
-			Token(TokenType.EOF, "", 3)
+			Token(CONSTANT, "2.4", 0),
+			Token(EOF, "", 3)
 		)
 
 		assertEquals(expectedTokens, lexer.tokens)
@@ -57,8 +58,8 @@ class LexerTest {
 		val lexer = Lexer(".4")
 
 		val expectedTokens = listOf(
-			Token(TokenType.CONSTANT, ".4", 0),
-			Token(TokenType.EOF, "", 2)
+			Token(CONSTANT, ".4", 0),
+			Token(EOF, "", 2)
 		)
 
 		assertEquals(expectedTokens, lexer.tokens)
@@ -69,9 +70,9 @@ class LexerTest {
 		val lexer = Lexer("2.4.3")
 
 		val expectedTokens = listOf(
-			Token(TokenType.CONSTANT, "2.4", 0),
-			Token(TokenType.CONSTANT, ".3", 3),
-			Token(TokenType.EOF, "", 5)
+			Token(CONSTANT, "2.4", 0),
+			Token(CONSTANT, ".3", 3),
+			Token(EOF, "", 5)
 		)
 
 		assertEquals(expectedTokens, lexer.tokens)
@@ -82,8 +83,8 @@ class LexerTest {
 		val lexer = Lexer("eee_EEE_24")
 
 		val expectedTokens = listOf(
-			Token(TokenType.IDENTIFIER, "eee_EEE_24", 0),
-			Token(TokenType.EOF, "", 10)
+			Token(IDENTIFIER, "eee_EEE_24", 0),
+			Token(EOF, "", 10)
 		)
 
 		assertEquals(expectedTokens, lexer.tokens)
@@ -94,12 +95,12 @@ class LexerTest {
 		val lexer = Lexer("+ - * / ^")
 
 		val expectedTokens = listOf(
-			Token(TokenType.ADDITION, "+", 0),
-			Token(TokenType.SUBTRACTION, "-", 2),
-			Token(TokenType.MULTIPLICATION, "*", 4),
-			Token(TokenType.DIVISION, "/", 6),
-			Token(TokenType.EXPONENTIATION, "^", 8),
-			Token(TokenType.EOF, "", 9)
+			Token(ADDITION, "+", 0),
+			Token(SUBTRACTION, "-", 2),
+			Token(MULTIPLICATION, "*", 4),
+			Token(DIVISION, "/", 6),
+			Token(EXPONENTIATION, "^", 8),
+			Token(EOF, "", 9)
 		)
 
 		assertEquals(expectedTokens, lexer.tokens)
