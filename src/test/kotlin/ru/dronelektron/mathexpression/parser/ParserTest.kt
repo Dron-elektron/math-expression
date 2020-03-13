@@ -9,7 +9,7 @@ import ru.dronelektron.mathexpression.lexer.TokenType.*
 class ParserTest {
 	@Test
 	fun root_whenConstant_shouldParse() {
-		val expectedRoot = ConcreteNode(
+		val expectedRoot = CstNode(
 			Token(CONSTANT, "2.4", 0)
 		)
 
@@ -18,7 +18,7 @@ class ParserTest {
 
 	@Test
 	fun root_whenIdentifier_shouldParse() {
-		val expectedRoot = ConcreteNode(
+		val expectedRoot = CstNode(
 			Token(IDENTIFIER, "eee_EEE_24", 0)
 		)
 
@@ -27,10 +27,10 @@ class ParserTest {
 
 	@Test
 	fun root_whenAddition_shouldParse() {
-		val expectedRoot = ConcreteNode(
+		val expectedRoot = CstNode(
 			Token(ADDITION, "+", 4),
-			ConcreteNode(Token(CONSTANT, "1.2", 0)),
-			ConcreteNode(Token(CONSTANT, "0.24", 6))
+			CstNode(Token(CONSTANT, "1.2", 0)),
+			CstNode(Token(CONSTANT, "0.24", 6))
 		)
 
 		parseGood("1.2 + 0.24", expectedRoot)
@@ -38,10 +38,10 @@ class ParserTest {
 
 	@Test
 	fun root_whenSubtraction_shouldParse() {
-		val expectedRoot = ConcreteNode(
+		val expectedRoot = CstNode(
 			Token(SUBTRACTION, "-", 4),
-			ConcreteNode(Token(CONSTANT, "1.2", 0)),
-			ConcreteNode(Token(CONSTANT, "0.24", 6))
+			CstNode(Token(CONSTANT, "1.2", 0)),
+			CstNode(Token(CONSTANT, "0.24", 6))
 		)
 
 		parseGood("1.2 - 0.24", expectedRoot)
@@ -49,10 +49,10 @@ class ParserTest {
 
 	@Test
 	fun root_whenMultiplication_shouldParse() {
-		val expectedRoot = ConcreteNode(
+		val expectedRoot = CstNode(
 			Token(MULTIPLICATION, "*", 4),
-			ConcreteNode(Token(CONSTANT, "1.2", 0)),
-			ConcreteNode(Token(CONSTANT, "0.24", 6))
+			CstNode(Token(CONSTANT, "1.2", 0)),
+			CstNode(Token(CONSTANT, "0.24", 6))
 		)
 
 		parseGood("1.2 * 0.24", expectedRoot)
@@ -60,10 +60,10 @@ class ParserTest {
 
 	@Test
 	fun root_whenDivision_shouldParse() {
-		val expectedRoot = ConcreteNode(
+		val expectedRoot = CstNode(
 			Token(DIVISION, "/", 4),
-			ConcreteNode(Token(CONSTANT, "1.2", 0)),
-			ConcreteNode(Token(CONSTANT, "0.24", 6))
+			CstNode(Token(CONSTANT, "1.2", 0)),
+			CstNode(Token(CONSTANT, "0.24", 6))
 		)
 
 		parseGood("1.2 / 0.24", expectedRoot)
@@ -71,10 +71,10 @@ class ParserTest {
 
 	@Test
 	fun root_whenExponentiation_shouldParse() {
-		val expectedRoot = ConcreteNode(
+		val expectedRoot = CstNode(
 			Token(EXPONENTIATION, "^", 4),
-			ConcreteNode(Token(CONSTANT, "1.2", 0)),
-			ConcreteNode(Token(CONSTANT, "0.24", 6))
+			CstNode(Token(CONSTANT, "1.2", 0)),
+			CstNode(Token(CONSTANT, "0.24", 6))
 		)
 
 		parseGood("1.2 ^ 0.24", expectedRoot)
@@ -82,14 +82,14 @@ class ParserTest {
 
 	@Test
 	fun root_whenAdditionAndSubtraction_shouldParse() {
-		val expectedRoot = ConcreteNode(
+		val expectedRoot = CstNode(
 			Token(SUBTRACTION, "-", 6),
-			ConcreteNode(
+			CstNode(
 				Token(ADDITION, "+", 2),
-				ConcreteNode(Token(CONSTANT, "1", 0)),
-				ConcreteNode(Token(CONSTANT, "2", 4))
+				CstNode(Token(CONSTANT, "1", 0)),
+				CstNode(Token(CONSTANT, "2", 4))
 			),
-			ConcreteNode(Token(CONSTANT, "3", 8))
+			CstNode(Token(CONSTANT, "3", 8))
 		)
 
 		parseGood("1 + 2 - 3", expectedRoot)
@@ -97,14 +97,14 @@ class ParserTest {
 
 	@Test
 	fun root_whenMultiplicationAndDivision_shouldParse() {
-		val expectedRoot = ConcreteNode(
+		val expectedRoot = CstNode(
 			Token(DIVISION, "/", 6),
-			ConcreteNode(
+			CstNode(
 				Token(MULTIPLICATION, "*", 2),
-				ConcreteNode(Token(CONSTANT, "1", 0)),
-				ConcreteNode(Token(CONSTANT, "2", 4))
+				CstNode(Token(CONSTANT, "1", 0)),
+				CstNode(Token(CONSTANT, "2", 4))
 			),
-			ConcreteNode(Token(CONSTANT, "3", 8))
+			CstNode(Token(CONSTANT, "3", 8))
 		)
 
 		parseGood("1 * 2 / 3", expectedRoot)
@@ -112,13 +112,13 @@ class ParserTest {
 
 	@Test
 	fun root_whenMultipleExponentiation_shouldParse() {
-		val expectedRoot = ConcreteNode(
+		val expectedRoot = CstNode(
 			Token(EXPONENTIATION, "^", 2),
-			ConcreteNode(Token(CONSTANT, "1", 0)),
-			ConcreteNode(
+			CstNode(Token(CONSTANT, "1", 0)),
+			CstNode(
 				Token(EXPONENTIATION, "^", 6),
-				ConcreteNode(Token(CONSTANT, "2", 4)),
-				ConcreteNode(Token(CONSTANT, "3", 8))
+				CstNode(Token(CONSTANT, "2", 4)),
+				CstNode(Token(CONSTANT, "3", 8))
 			)
 		)
 
@@ -127,9 +127,9 @@ class ParserTest {
 
 	@Test
 	fun root_whenUnary_shouldParse() {
-		val expectedRoot = ConcreteNode(
+		val expectedRoot = CstNode(
 			Token(SUBTRACTION, "-", 0),
-			ConcreteNode(Token(CONSTANT, "24", 1))
+			CstNode(Token(CONSTANT, "24", 1))
 		)
 
 		parseGood("-24", expectedRoot)
@@ -137,11 +137,11 @@ class ParserTest {
 
 	@Test
 	fun root_whenDoubleUnary_shouldParse() {
-		val expectedRoot = ConcreteNode(
+		val expectedRoot = CstNode(
 			Token(SUBTRACTION, "-", 0),
-			ConcreteNode(
+			CstNode(
 				Token(SUBTRACTION, "-", 1),
-				ConcreteNode(Token(CONSTANT, "24", 2))
+				CstNode(Token(CONSTANT, "24", 2))
 			)
 		)
 
@@ -150,12 +150,12 @@ class ParserTest {
 
 	@Test
 	fun root_whenUnaryAfterAddition_shouldParse() {
-		val expectedRoot = ConcreteNode(
+		val expectedRoot = CstNode(
 			Token(ADDITION, "+", 2),
-			ConcreteNode(Token(CONSTANT, "2", 0)),
-			ConcreteNode(
+			CstNode(Token(CONSTANT, "2", 0)),
+			CstNode(
 				Token(SUBTRACTION, "-", 4),
-				ConcreteNode(Token(CONSTANT, "3", 5))
+				CstNode(Token(CONSTANT, "3", 5))
 			)
 		)
 
@@ -164,12 +164,12 @@ class ParserTest {
 
 	@Test
 	fun root_whenUnaryAfterSubtraction_shouldParse() {
-		val expectedRoot = ConcreteNode(
+		val expectedRoot = CstNode(
 			Token(SUBTRACTION, "-", 2),
-			ConcreteNode(Token(CONSTANT, "2", 0)),
-			ConcreteNode(
+			CstNode(Token(CONSTANT, "2", 0)),
+			CstNode(
 				Token(SUBTRACTION, "-", 4),
-				ConcreteNode(Token(CONSTANT, "3", 5))
+				CstNode(Token(CONSTANT, "3", 5))
 			)
 		)
 
@@ -178,12 +178,12 @@ class ParserTest {
 
 	@Test
 	fun root_whenFunctionCall_shouldParse() {
-		val expectedTree = ConcreteNode(
+		val expectedTree = CstNode(
 			Token(IDENTIFIER, "sin", 0),
-			ConcreteNode(
+			CstNode(
 				Token(MULTIPLICATION, "*", 6),
-				ConcreteNode(Token(CONSTANT, "2", 4)),
-				ConcreteNode(Token(IDENTIFIER, "x", 8))
+				CstNode(Token(CONSTANT, "2", 4)),
+				CstNode(Token(IDENTIFIER, "x", 8))
 			)
 		)
 
@@ -215,7 +215,7 @@ class ParserTest {
 		parseBad("sin(2 * x", Parser.ERROR_INCOMPLETE_CALL, Token(EOF, "", 9))
 	}
 
-	private fun parseGood(expressionText: String, expectedRoot: ConcreteNode) {
+	private fun parseGood(expressionText: String, expectedRoot: CstNode) {
 		val lexer = Lexer(expressionText)
 		val parser = Parser(lexer.tokens)
 

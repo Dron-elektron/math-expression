@@ -19,34 +19,34 @@ class Parser(private val tokens: List<Token>) {
 		parseExponentiation()
 	}
 
-	private fun parseOperations(vararg tokenTypes: TokenType, parseSubRule: () -> ConcreteNode): ConcreteNode {
+	private fun parseOperations(vararg tokenTypes: TokenType, parseSubRule: () -> CstNode): CstNode {
 		var left = parseSubRule()
 
 		while (match(*tokenTypes)) {
-			left = ConcreteNode(previousToken(), left, parseSubRule())
+			left = CstNode(previousToken(), left, parseSubRule())
 		}
 
 		return left
 	}
 
-	private fun parseExponentiation(): ConcreteNode {
+	private fun parseExponentiation(): CstNode {
 		val left = parseUnary()
 
 		return if (match(EXPONENTIATION)) {
-			ConcreteNode(previousToken(), left, parseExponentiation())
+			CstNode(previousToken(), left, parseExponentiation())
 		} else {
 			left
 		}
 	}
 
-	private fun parseUnary(): ConcreteNode = if (match(SUBTRACTION)) {
-		ConcreteNode(previousToken(), parseUnary())
+	private fun parseUnary(): CstNode = if (match(SUBTRACTION)) {
+		CstNode(previousToken(), parseUnary())
 	} else {
 		parsePrimary()
 	}
 
 	private fun parsePrimary() = when {
-		match(CONSTANT) -> ConcreteNode(previousToken())
+		match(CONSTANT) -> CstNode(previousToken())
 		match(IDENTIFIER) -> parseIdentifier()
 
 		match(LEFT_PAREN) -> parseAddition().also {
@@ -56,17 +56,17 @@ class Parser(private val tokens: List<Token>) {
 		else -> error(ERROR_UNEXPECTED_TOKEN)
 	}
 
-	private fun parseIdentifier(): ConcreteNode {
+	private fun parseIdentifier(): CstNode {
 		val token = previousToken()
 
-		if (!match(LEFT_PAREN)) return ConcreteNode(token)
+		if (!match(LEFT_PAREN)) return CstNode(token)
 
-		return ConcreteNode(token, parseArguments()).also {
+		return CstNode(token, parseArguments()).also {
 			consumeToken(RIGHT_PAREN, ERROR_INCOMPLETE_CALL)
 		}
 	}
 
-	private fun parseArguments(): ConcreteNode {
+	private fun parseArguments(): CstNode {
 		// TODO: Multiple arguments
 		return parseAddition()
 	}
