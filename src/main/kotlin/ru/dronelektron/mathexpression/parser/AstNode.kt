@@ -7,5 +7,5 @@ sealed class AstNode {
 	data class Unary(val expression: AstNode) : AstNode()
 	data class Constant(val value: Double) : AstNode()
 	data class Variable(val token: Token) : AstNode()
-	data class Function(val token: Token, val argument: AstNode) : AstNode()
+	data class Function(val token: Token, val arguments: List<AstNode>) : AstNode()
 }

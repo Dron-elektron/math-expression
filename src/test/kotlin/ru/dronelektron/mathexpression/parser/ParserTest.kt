@@ -171,10 +171,12 @@ class ParserTest {
 	fun root_whenFunctionCall_shouldParse() {
 		val expectedTree = AstNode.Function(
 			Token(IDENTIFIER, "sin", 0),
-			AstNode.Operation(
-				Token(MULTIPLICATION, "*", 6),
-				AstNode.Constant(2.0),
-				AstNode.Variable(Token(IDENTIFIER, "x", 8))
+			listOf(
+				AstNode.Operation(
+					Token(MULTIPLICATION, "*", 6),
+					AstNode.Constant(2.0),
+					AstNode.Variable(Token(IDENTIFIER, "x", 8))
+				)
 			)
 		)
 

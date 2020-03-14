@@ -69,16 +69,23 @@ class Parser(private val tokens: List<Token>) {
 
 		if (!match(LEFT_PAREN)) return AstNode.Variable(token)
 
-		val argument = parseArgument()
+		val arguments = parseArguments()
 
-		return AstNode.Function(token, argument).also {
+		return AstNode.Function(token, arguments).also {
 			consumeToken(RIGHT_PAREN, ERROR_INCOMPLETE_CALL)
 		}
 	}
 
-	private fun parseArgument(): AstNode {
-		// TODO: Multiple arguments
-		return parseAddition()
+	private fun parseArguments(): List<AstNode> {
+		val arguments = mutableListOf<AstNode>()
+
+		do {
+			val argument = parseAddition()
+
+			arguments.add(argument)
+		} while (match(COMMA))
+
+		return arguments
 	}
 
 	private fun match(vararg tokensTypes: TokenType): Boolean {
