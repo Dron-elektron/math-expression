@@ -6,7 +6,7 @@ import ru.dronelektron.mathexpression.lexer.TokenType.*
 
 class LexerTest {
 	@Test
-	fun tokens_whenEmptyInput_returnsEof() {
+	fun tokens_whenEmptyInput_shouldScan() {
 		val expectedTokens = listOf(
 			Token(EOF, "", 0)
 		)
@@ -15,7 +15,7 @@ class LexerTest {
 	}
 
 	@Test
-	fun tokens_whenLeftParenAndRightParen_returnsBoth() {
+	fun tokens_whenLeftParenAndRightParen_shouldScan() {
 		val expectedTokens = listOf(
 			Token(LEFT_PAREN, "(", 0),
 			Token(RIGHT_PAREN, ")", 1),
@@ -26,7 +26,7 @@ class LexerTest {
 	}
 
 	@Test
-	fun tokens_whenComma_returnsIt() {
+	fun tokens_whenComma_shouldScan() {
 		val expectedTokens = listOf(
 			Token(COMMA, ",", 0),
 			Token(EOF, "", 1)
@@ -36,7 +36,7 @@ class LexerTest {
 	}
 
 	@Test
-	fun tokens_whenConstantWithoutPoint_returnsIt() {
+	fun tokens_whenConstantWithoutPoint_shouldScan() {
 		val expectedTokens = listOf(
 			Token(CONSTANT, "2", 0),
 			Token(EOF, "", 1)
@@ -46,7 +46,7 @@ class LexerTest {
 	}
 
 	@Test
-	fun tokens_whenConstantWithPoint_returnsIt() {
+	fun tokens_whenConstantWithPoint_shouldScan() {
 		val expectedTokens = listOf(
 			Token(CONSTANT, "2.4", 0),
 			Token(EOF, "", 3)
@@ -56,7 +56,7 @@ class LexerTest {
 	}
 
 	@Test
-	fun tokens_whenConstantStartsWithPoint_returnsIt() {
+	fun tokens_whenConstantStartsWithPoint_shouldScan() {
 		val expectedTokens = listOf(
 			Token(CONSTANT, ".4", 0),
 			Token(EOF, "", 2)
@@ -77,7 +77,7 @@ class LexerTest {
 	}
 
 	@Test
-	fun tokens_whenIdentifier_returnsIt() {
+	fun tokens_whenIdentifier_shouldScan() {
 		val expectedTokens = listOf(
 			Token(IDENTIFIER, "eee_EEE_24", 0),
 			Token(EOF, "", 10)
@@ -87,7 +87,7 @@ class LexerTest {
 	}
 
 	@Test
-	fun tokens_whenOperations_returnsAll() {
+	fun tokens_whenOperations_shouldScan() {
 		val expectedTokens = listOf(
 			Token(ADDITION, "+", 0),
 			Token(SUBTRACTION, "-", 2),
