@@ -218,8 +218,6 @@ class CalculatorTest {
 		}
 	}
 
-	// TODO: Tests for functions
-
 	@Test
 	fun calculate_whenUndefinedVariable_throwsException() {
 		testBad("x + y", Calculator.ERROR_UNDEFINED_VARIABLE, Token(IDENTIFIER, "y", 4)) {
