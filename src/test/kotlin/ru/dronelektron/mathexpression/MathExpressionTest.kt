@@ -38,6 +38,16 @@ class MathExpressionTest {
 		testGood("log2(2 * 4) - (log2(2) + log2(4))", 0.0)
 	}
 
+	@Test
+	fun calculate_whenTwoDividedByZero_returnsInfinity() {
+		testGood("2 / 0", Double.POSITIVE_INFINITY)
+	}
+
+	@Test
+	fun calculate_whenZeroDividedByZero_returnsNan() {
+		testGood("0 / 0", Double.NaN)
+	}
+
 	private fun testGood(
 		expressionText: String,
 		expectedResult: Double,
