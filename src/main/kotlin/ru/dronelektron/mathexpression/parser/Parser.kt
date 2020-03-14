@@ -77,6 +77,8 @@ class Parser(private val tokens: List<Token>) {
 	}
 
 	private fun parseArguments(): List<AstNode> {
+		if (checkTokenType(RIGHT_PAREN)) return emptyList()
+
 		val arguments = mutableListOf<AstNode>()
 
 		do {
@@ -89,7 +91,7 @@ class Parser(private val tokens: List<Token>) {
 	}
 
 	private fun match(vararg tokensTypes: TokenType): Boolean {
-		val matched = tokensTypes.any { peekToken().type == it }
+		val matched = tokensTypes.any { checkTokenType(it) }
 
 		if (matched) advance()
 
@@ -103,6 +105,8 @@ class Parser(private val tokens: List<Token>) {
 	private fun consumeToken(tokenType: TokenType, message: String) {
 		if (!match(tokenType)) error(message)
 	}
+
+	private fun checkTokenType(tokenType: TokenType) = peekToken().type == tokenType
 
 	private fun isAtEnd() = currentIndex >= tokens.size
 
