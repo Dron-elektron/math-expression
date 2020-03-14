@@ -1,5 +1,6 @@
 package ru.dronelektron.mathexpression.calculator.functions
 
+import ru.dronelektron.mathexpression.calculator.Function
 import kotlin.math.abs
 
 object AbsFunction : Function {

@@ -1,4 +1,4 @@
-package ru.dronelektron.mathexpression.calculator.functions
+package ru.dronelektron.mathexpression.calculator
 
 interface Function {
 	val arity: Int

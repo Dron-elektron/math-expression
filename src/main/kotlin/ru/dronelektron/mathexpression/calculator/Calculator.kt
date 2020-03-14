@@ -1,6 +1,5 @@
 package ru.dronelektron.mathexpression.calculator
 
-import ru.dronelektron.mathexpression.calculator.functions.Function
 import ru.dronelektron.mathexpression.lexer.Token
 import ru.dronelektron.mathexpression.lexer.TokenType.*
 import ru.dronelektron.mathexpression.parser.AstNode

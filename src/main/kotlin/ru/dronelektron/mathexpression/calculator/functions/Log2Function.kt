@@ -1,5 +1,6 @@
 package ru.dronelektron.mathexpression.calculator.functions
 
+import ru.dronelektron.mathexpression.calculator.Function
 import kotlin.math.log2
 
 object Log2Function : Function {
