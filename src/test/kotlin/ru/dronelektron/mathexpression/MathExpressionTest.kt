@@ -3,6 +3,7 @@ package ru.dronelektron.mathexpression
 import org.junit.Assert.*
 import org.junit.Test
 import ru.dronelektron.mathexpression.calculator.Function
+import kotlin.math.PI
 
 class MathExpressionTest {
 	@Test
@@ -23,6 +24,18 @@ class MathExpressionTest {
 		testGood("sin(x) ^ 2 + cos(x) ^ 2", 1.0) {
 			setVariable("x", 0.24)
 		}
+	}
+
+	@Test
+	fun calculate_whenSinDividedByCosMinusTan_returnsZero() {
+		testGood("sin(x) / cos(x) - tan(x)", 0.0) {
+			setVariable("x", PI / 4)
+		}
+	}
+
+	@Test
+	fun calculate_whenLog2OfMultiplicationMinusSumOfLog2_returnsZero() {
+		testGood("log2(2 * 4) - (log2(2) + log2(4))", 0.0)
 	}
 
 	private fun testGood(
