@@ -219,6 +219,20 @@ class CalculatorTest {
 	}
 
 	@Test
+	fun calculate_whenFooWithoutArguments_returnsThirteenPointThirtySeven() {
+		calculateGood("foo()", 13.37) {
+			addFunction("foo", ZeroArgFunction)
+		}
+	}
+
+	@Test
+	fun calculate_whenBarOfTwoAndFour_returnsSix() {
+		calculateGood("bar(2, 4)", 6.0) {
+			addFunction("bar", TwoArgFunction)
+		}
+	}
+
+	@Test
 	fun calculate_whenUndefinedVariable_throwsException() {
 		calculateBad("x + y", Calculator.ERROR_UNDEFINED_VARIABLE, Token(IDENTIFIER, "y", 4)) {
 			setVariable("x", 2.4)
@@ -279,6 +293,18 @@ class CalculatorTest {
 		val parser = Parser(lexer.tokens)
 
 		return Calculator(parser.root).also { callback(it) }
+	}
+
+	private object ZeroArgFunction : Function {
+		override val arity = 0
+
+		override fun call(arguments: List<Double>) = 13.37
+	}
+
+	private object TwoArgFunction : Function {
+		override val arity = 2
+
+		override fun call(arguments: List<Double>) = arguments[0] + arguments[1]
 	}
 
 	companion object {
