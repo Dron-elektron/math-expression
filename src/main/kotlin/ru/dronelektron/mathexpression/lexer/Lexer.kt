@@ -30,6 +30,7 @@ class Lexer(private val text: String) {
 			'^' -> addToken(EXPONENTIATION)
 			'(' -> addToken(LEFT_PAREN)
 			')' -> addToken(RIGHT_PAREN)
+			',' -> addToken(COMMA)
 			'.' -> scanNumber(startsWithPoint = true)
 			' ', '\t', '\n' -> {}
 

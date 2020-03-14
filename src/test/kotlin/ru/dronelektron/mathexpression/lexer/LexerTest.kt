@@ -30,6 +30,18 @@ class LexerTest {
 	}
 
 	@Test
+	fun tokens_whenComma_returnsIt() {
+		val lexer = Lexer(",")
+
+		val expectedTokens = listOf(
+			Token(COMMA, ",", 0),
+			Token(EOF, "", 1)
+		)
+
+		assertEquals(expectedTokens, lexer.tokens)
+	}
+
+	@Test
 	fun tokens_whenConstantWithoutPoint_returnsIt() {
 		val lexer = Lexer("2")
 
