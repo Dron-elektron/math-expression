@@ -1,5 +1,8 @@
 # Math Expression
 
+![JitPack](https://img.shields.io/jitpack/v/github/Dron-elektron/math-expression)
+![GitHub](https://img.shields.io/github/license/Dron-elektron/math-expression)
+
 A library for parsing math expressions.
 
 ## Features
@@ -103,3 +106,25 @@ val mathExpression = MathExpression("sin(x) ^ 2 + cos(x) ^ 2").apply {
 
 println(mathExpression.calulate()) // Returns 1
 ```
+
+## Installation
+
+* Add the JitPack repository to your build file
+
+    ```groovy
+    allprojects {
+        repositories {
+            // Other repositories
+            maven { url 'https://jitpack.io' }
+        }
+    }
+    ```
+
+* Add the dependency to build.gradle
+
+    ```groovy
+    dependencies {
+        // Other dependencies
+        implementation 'com.github.Dron-elektron:math-expression:{latest_version}'
+    }
+    ```
