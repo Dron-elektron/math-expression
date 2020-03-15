@@ -25,6 +25,13 @@ class MathExpression(text: String) {
 		calculator.setVariable(name, value)
 	}
 
+	fun setVariable(name: String, expressionText: String) {
+		val mathExpression = MathExpression(expressionText)
+		val value = mathExpression.calculate()
+
+		calculator.setVariable(name, value)
+	}
+
 	fun addFunction(name: String, function: Function) {
 		calculator.addFunction(name, function)
 	}
