@@ -233,6 +233,14 @@ class CalculatorTest {
 	}
 
 	@Test
+	fun calculate_whenSameNameForVariableAndFunction_returnsSix() {
+		calculateGood("bi + bi(2, 3)", 6.0) {
+			setVariable("bi", 1.0)
+			addFunction("bi", TwoArgFunction)
+		}
+	}
+
+	@Test
 	fun calculate_whenUndefinedVariable_throwsException() {
 		calculateBad("x + y", Calculator.ERROR_UNDEFINED_VARIABLE, Token(IDENTIFIER, "y", 4)) {
 			setVariable("x", 2.4)
