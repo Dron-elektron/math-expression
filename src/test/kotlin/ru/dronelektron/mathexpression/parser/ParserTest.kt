@@ -1,7 +1,8 @@
 package ru.dronelektron.mathexpression.parser
 
-import org.junit.Assert.*
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.fail
 import ru.dronelektron.mathexpression.lexer.Lexer
 import ru.dronelektron.mathexpression.lexer.Token
 import ru.dronelektron.mathexpression.lexer.TokenType.*
@@ -220,7 +221,7 @@ class ParserTest {
 			val lexer = Lexer(expressionText)
 
 			Parser(lexer.tokens)
-			fail()
+			fail("Parsing should fail")
 		} catch (ex: ParserException) {
 			assertEquals(expectedMessage, ex.message)
 			assertEquals(expectedToken, ex.token)

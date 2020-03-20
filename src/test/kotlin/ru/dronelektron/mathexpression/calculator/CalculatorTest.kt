@@ -1,8 +1,8 @@
 package ru.dronelektron.mathexpression.calculator
 
-import org.junit.Assert.assertEquals
-import org.junit.Assert.fail
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.fail
 import ru.dronelektron.mathexpression.calculator.functions.*
 import ru.dronelektron.mathexpression.lexer.Lexer
 import ru.dronelektron.mathexpression.lexer.Token
@@ -286,7 +286,7 @@ class CalculatorTest {
 
 		try {
 			calculator.calculate()
-			fail()
+			fail("Calculation should fail")
 		} catch (ex: CalculatorException) {
 			assertEquals(expectedMessage, ex.message)
 			assertEquals(expectedToken, ex.token)

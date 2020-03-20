@@ -1,7 +1,8 @@
 package ru.dronelektron.mathexpression.lexer
 
-import org.junit.Assert.*
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.fail
 import ru.dronelektron.mathexpression.lexer.TokenType.*
 
 class LexerTest {
@@ -139,7 +140,7 @@ class LexerTest {
 	private fun scanBad(expressionText: String, expectedMessage: String, expectedPosition: Int) {
 		try {
 			Lexer(expressionText)
-			fail()
+			fail("Scanning should fail")
 		} catch (ex: LexerException) {
 			assertEquals(expectedMessage, ex.message)
 			assertEquals(expectedPosition, ex.position)
