@@ -1,7 +1,7 @@
 # Math Expression
 
-![JitPack](https://img.shields.io/jitpack/v/github/Dron-elektron/math-expression)
-![GitHub](https://img.shields.io/github/license/Dron-elektron/math-expression)
+![JitPack](https://img.shields.io/jitpack/v/github/Dron-elektron/math-expression?color=009900)
+![GitHub](https://img.shields.io/github/license/Dron-elektron/math-expression?color=0099ff)
 
 A library for parsing math expressions.
 
